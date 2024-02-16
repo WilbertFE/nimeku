@@ -1,25 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Contact from "./pages/Contact.jsx";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/nimeku/",
-    element: <App />,
-    children: [
-      {
-        path: "/nimeku/",
-        element: <Home />,
-      },
-      {
-        path: "/nimeku/contact",
-        element: <Contact />,
-      },
-    ],
+    element: <Home />,
   },
 ]);
 
