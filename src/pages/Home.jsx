@@ -2,13 +2,60 @@
 import { IoMdSettings } from "react-icons/io";
 import { IoDiamond } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
+import { AiFillThunderbolt } from "react-icons/ai";
+
+const genres = [
+  "Movie",
+  "Action",
+  "Adventure",
+  "Comedy",
+  "Demons",
+  "Drama",
+  "Ec*hi",
+  "Fantasy",
+  "Game",
+  "Harem",
+  "Historical",
+  "Horror",
+  "Josei",
+  "Magic",
+  "Martial Arts",
+  "Mecha",
+  "Military",
+  "Music",
+  "Mystery",
+  "Psychological",
+  "Parody",
+  "Police",
+  "Romance",
+  "Samurai",
+  "School",
+  "Sci-Fi",
+  "Seinen",
+  "Shoujo Ai",
+  "Shounen",
+  "Slice of Life",
+  "Sports",
+  "Space",
+  "Super Power",
+  "Supernatural",
+  "Thriller",
+  "Vampire",
+];
 
 const Home = () => {
   return (
     // Top Section Start
-    <section id="top" className="pt-24 pb-32">
+    <section id="top" className="pt-12 pb-32">
       <div className="container">
         <div className="flex flex-wrap mx-4">
+          <div className="w-full flex mb-12 justify-end">
+            <div className="flex bg-third p-2 rounded-lg">
+              <AiFillThunderbolt className="text-secondary w-[30px] h-[30px]" />
+              <p className="text-white font-bold ml-2">0 / 2</p>
+            </div>
+          </div>
           <div className="w-full flex items-center mb-6 gap-x-3">
             <div className="w-[56px] h-[56px] rounded-full bg-white overflow-hidden border border-white">
               <img
@@ -48,15 +95,62 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <div className="w-full flex items-center bg-third px-4 py-5 rounded-lg">
+          <div className="w-full flex items-center bg-third px-4 py-5 mb-6 rounded-lg">
             <FaSearch className="text-secondary mr-4 w-[20px] h-[20px]" />
             <input
               type="text"
               name="search-anime"
               id="search-anime"
-              className="block bg-transparent placeholder:text-lg focus:outline-none"
+              className="block bg-transparent placeholder:text-lg focus:outline-none focus:text-white"
               placeholder="Cari Anime"
             />
+          </div>
+          <div className="w-full flex flex-wrap mb-6 mx-2">
+            <div className="w-full flex justify-between mb-6">
+              <div className="flex flex-col">
+                <h3 className="text-secondary font-bold text-2xl mb-1">
+                  Anime
+                </h3>
+                <div className="w-4/5 h-[4px] bg-secondary mx-auto rounded-full"></div>
+              </div>
+              <div className="flex flex-col">
+                <h3 className="text-white font-bold text-2xl mb-1">Berita</h3>
+                <div className="hidden w-4/5 h-[4px] bg-secondary mx-auto rounded-full"></div>
+              </div>
+              <div className="flex flex-col">
+                <h3 className="text-white font-bold text-2xl mb-1">Musik</h3>
+                <div className="hidden w-4/5 h-[4px] bg-secondary mx-auto rounded-full"></div>
+              </div>
+            </div>
+            <div className="w-full flex gap-x-4 items-start">
+              <div className="w-[100px] h-[70px] bg-third rounded-md overflow-hidden">
+                <img
+                  src="/nimeku/img/majotoyajuu.jpg"
+                  alt="anime"
+                  className="block w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1 flex flex-col overflow-hidden">
+                <h3 className="text-secondary font-bold">Terakhir Ditonton</h3>
+                <h4 className="text-white">Majo to Yajuu</h4>
+              </div>
+              <div className="bg-third p-4 self-center rounded-lg">
+                <FaPlay className="w-[16px] h-[16px] text-white" />
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex flex-wrap mx-2">
+            <h1 className="w-full text-white text-3xl font-bold mb-6">Genre</h1>
+            <div className="hide-scrollbar w-full flex gap-x-4 overflow-auto relative left-0 right-0">
+              {genres.map((genre) => (
+                <h3
+                  key={genre}
+                  className="text-secondary font-bold text-sm bg-third rounded-lg min-w-max px-4 py-3"
+                >
+                  {genre}
+                </h3>
+              ))}
+            </div>
           </div>
         </div>
       </div>
