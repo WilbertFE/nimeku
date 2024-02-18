@@ -8,7 +8,7 @@ import Genres from "../Fragments/Home/Genres";
 
 const Top = () => {
   return (
-    <section id="top" className="pt-8 pb-32">
+    <section id="top" className="pt-8">
       <div className="container">
         <div className="flex flex-wrap">
           <Energy />
