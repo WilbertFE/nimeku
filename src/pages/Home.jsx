@@ -9,24 +9,21 @@ import { Fragment, useEffect, useState } from "react";
 import Top from "../Layouts/Top";
 
 const Home = () => {
-  const [newestEpisode, setNewestEpisode] = useState(null);
-
+  const [newAnimes, setNewAnimes] = useState(null);
   useEffect(() => {
-    const url = `https://cors-anywhere.herokuapp.com/api.myanimelist.net:443/v2/anime/season/2024/winter?fields=id,title,main_picture,mean,num_list_users,status&limit=12`;
-    const clientID = "7b7781c2940fd9b3a21e580a261e220d";
-
-    const data = fetch(url, {
-      method: "GET",
-      headers: {
-        "X-MAL-CLIENT-ID": clientID,
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => response);
-    setNewestEpisode(data);
+    async function getAnimes() {
+      try {
+        const url = "https://api.jikan.moe/v4/seasons/now?limit=12";
+        const data = await fetch(url)
+          .then((response) => response.json())
+          .then((response) => response);
+        setNewAnimes(data.data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    getAnimes();
   }, []);
-
-  console.log(newestEpisode);
 
   return (
     <Fragment>
@@ -55,29 +52,42 @@ const Home = () => {
                 <FaAngleRight className="text-white w-[20px] h-[20px] relative -top-[1px]" />
               </div>
               <div className="w-full flex gap-y-3 px-1 flex-wrap">
-                <div className="w-1/3 flex flex-col px-1">
-                  <div className="w-full relative h-[150px] bg-third rounded-lg mb-2">
-                    <span className="text-primary absolute left-0 top-0 bg-secondary text-xs font-bold p-1 rounded-br-lg">
-                      New
-                    </span>
-                    <span className="flex absolute top-0 right-0 items-center bg-primary px-2 py-1 rounded-tr-lg">
-                      <IoStarSharp className="text-white w-3 h-3 mr-1" />
-                      <p className="text-white text-xs">7.55</p>
-                    </span>
-                    <h3 className="text-secondary font-bold absolute bottom-0 left-0 text-xs bg-primary px-2 py-1 rounded-bl-lg">
-                      Eps 13
-                    </h3>
-                  </div>
-                  <div className="flex gap-x-1">
-                    <IoMdPerson className="text-white/70 w-4 h-4 mb-1" />
-                    <p className="text-[11px] text-white/90 flex-1">5,6K</p>
-                    <FaFireFlameCurved className="text-red-600 w-4 h-4" />
-                    <p className="font-bold text-white text-[12px]">Rame</p>
-                  </div>
-                  <h3 className="text-white text-xs line-clamp-2">
-                    Seishun Buta Yarou wa: Odekake Sister no
-                  </h3>
-                </div>
+                {newAnimes &&
+                  newAnimes.map((anime) => (
+                    <div
+                      key={anime.mal_id}
+                      className="w-1/3 flex flex-col px-1"
+                    >
+                      <div
+                        className="w-full relative h-[150px] bg- rounded-lg mb-2 bg-cover"
+                        style={{
+                          backgroundImage: `url(${anime.images.jpg.image_url})`,
+                        }}
+                      >
+                        <span className="text-primary absolute left-0 top-0 bg-secondary text-xs font-bold p-1 rounded-br-lg">
+                          New
+                        </span>
+                        <span className="flex absolute top-0 right-0 items-center bg-primary px-2 py-1 rounded-tr-lg">
+                          <IoStarSharp className="text-white w-3 h-3 mr-1" />
+                          <p className="text-white text-xs">{anime.score}</p>
+                        </span>
+                        <h3 className="text-secondary font-bold absolute bottom-0 left-0 text-xs bg-primary px-2 py-1 rounded-bl-lg">
+                          {anime.episodes} Eps
+                        </h3>
+                      </div>
+                      <div className="flex gap-x-1">
+                        <IoMdPerson className="text-white/70 w-4 h-4 mb-1" />
+                        <p className="text-[11px] text-white/90 flex-1">
+                          {Math.round(anime.scored_by / 1000)}K
+                        </p>
+                        <FaFireFlameCurved className="text-red-600 w-4 h-4" />
+                        <p className="font-bold text-white text-[12px]">Rame</p>
+                      </div>
+                      <h3 className="text-white text-xs line-clamp-2">
+                        {anime.title}
+                      </h3>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
