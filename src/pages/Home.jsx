@@ -24,6 +24,7 @@ const Home = () => {
     }
     getAnimes();
   }, []);
+  console.log(newAnimes);
 
   return (
     <Fragment>
@@ -37,13 +38,13 @@ const Home = () => {
       {
         // Main Section Start
       }
-      <section id="main" className="pt-8">
+      <section id="main" className="pt-8 pb-32">
         <div className="container">
           <div className="flex flex-wrap">
-            <div className="w-full flex flex-wrap">
+            <div className="w-full flex flex-wrap pb-12">
               <div className="w-full flex items-center gap-x-2 px-6 mb-4">
                 <h1 className="text-white font-bold text-2xl min-w-max">
-                  Episode Terbaru
+                  Anime Terbaru
                 </h1>
                 <GrRefresh className="w-[32px] h-[32px] text-secondary" />
                 <h3 className="text-white font-bold ml-2 text-xs min-w-max">
@@ -58,12 +59,7 @@ const Home = () => {
                       key={anime.mal_id}
                       className="w-1/3 flex flex-col px-1"
                     >
-                      <div
-                        className="w-full relative h-[150px] bg- rounded-lg mb-2 bg-cover"
-                        style={{
-                          backgroundImage: `url(${anime.images.jpg.image_url})`,
-                        }}
-                      >
+                      <div className="w-full relative h-[150px] bg- rounded-md mb-2 bg-cover overflow-hidden">
                         <span className="text-primary absolute left-0 top-0 bg-secondary text-xs font-bold p-1 rounded-br-lg">
                           New
                         </span>
@@ -74,6 +70,12 @@ const Home = () => {
                         <h3 className="text-secondary font-bold absolute bottom-0 left-0 text-xs bg-primary px-2 py-1 rounded-bl-lg">
                           {anime.episodes} Eps
                         </h3>
+                        <img
+                          src={anime.images.webp.large_image_url}
+                          alt={anime.title}
+                          loading="lazy"
+                          className="block w-full h-full object-cover text-white text-xs text-center"
+                        />
                       </div>
                       <div className="flex gap-x-1">
                         <IoMdPerson className="text-white/70 w-4 h-4 mb-1" />
@@ -88,6 +90,17 @@ const Home = () => {
                       </h3>
                     </div>
                   ))}
+              </div>
+            </div>
+            <div className="w-full flex items-center px-8">
+              <div className="flex flex-col bg-third rounded-lg mr-4 py-2 px-3">
+                <h1 className="text-secondary font-bold">Jadwal Rilis</h1>
+                <p className="text-white/90 text-[11px]">Tidak tahu kapan</p>
+                <p className="text-white/90 text-[11px]">anime rilis ?</p>
+              </div>
+              <div>
+                <p className="text-white text-xs">Tekan di sini</p>
+                <p className="text-white text-xs">untuk melihat jadwal</p>
               </div>
             </div>
           </div>
