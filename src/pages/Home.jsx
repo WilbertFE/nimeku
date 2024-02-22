@@ -4,6 +4,11 @@ import { FaAngleRight } from "react-icons/fa6";
 import { IoMdPerson } from "react-icons/io";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoStarSharp } from "react-icons/io5";
+import { IoMdHome } from "react-icons/io";
+import { MdDateRange } from "react-icons/md";
+import { MdListAlt } from "react-icons/md";
+import { IoMdTime } from "react-icons/io";
+import { FaBell } from "react-icons/fa";
 // import Layouts
 import { Fragment, useEffect, useState } from "react";
 import Top from "../Layouts/Top";
@@ -63,6 +68,7 @@ const Home = () => {
     };
     fetchDataSequentially();
   }, []);
+  // Ketika Bottom bar diklik
 
   return (
     <Fragment>
@@ -76,7 +82,7 @@ const Home = () => {
       {
         // Main Section Start
       }
-      <section id="main" className="pt-8 pb-32">
+      <section id="main" className="pt-8">
         <div className="container">
           <div className="flex flex-wrap">
             <div className="w-full flex flex-wrap pb-4">
@@ -185,7 +191,7 @@ const Home = () => {
                   ))}
               </div>
             </div>
-            <div className="w-full flex flex-wrap">
+            <div className="w-full flex flex-wrap pb-12">
               <div className="w-full flex">
                 <h1 className="text-white font-bold text-xl mb-4 px-4">
                   Rekomendasi Anime
@@ -231,6 +237,76 @@ const Home = () => {
                     </div>
                   ))}
               </div>
+            </div>
+            <div className="navigation relative w-[400px] h-[70px] bg-third flex justify-center items-center rounded-[10px]">
+              <ul className="flex items-center w-[350px]">
+                <li className="list z-10 active flex items-center relative w-[70px] h-[70px]">
+                  <a
+                    href="#"
+                    className="relative flex justify-center items-center flex-col w-full text-center font-medium"
+                  >
+                    <span className="icon relative block leading-[75px] text-2xl text-center text-secondary transition duration-500">
+                      <IoMdHome className="w-7 h-7" />
+                    </span>
+                    {/* <span className="text absolute text-white font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
+                      Home
+                    </span> */}
+                  </a>
+                </li>
+                <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
+                  <a
+                    href="#"
+                    className="relative flex justify-center items-center flex-col w-full text-center font-medium"
+                  >
+                    <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
+                      <MdDateRange className="w-7 h-7" />
+                    </span>
+                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
+                      Home
+                    </span> */}
+                  </a>
+                </li>
+                <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
+                  <a
+                    href="#"
+                    className="relative flex justify-center items-center flex-col w-full text-center font-medium"
+                  >
+                    <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
+                      <MdListAlt className="w-7 h-7" />
+                    </span>
+                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
+                      Home
+                    </span> */}
+                  </a>
+                </li>
+                <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
+                  <a
+                    href="#"
+                    className="relative flex justify-center items-center flex-col w-full text-center font-medium"
+                  >
+                    <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
+                      <IoMdTime className="w-7 h-7" />
+                    </span>
+                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
+                      Home
+                    </span> */}
+                  </a>
+                </li>
+                <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
+                  <a
+                    href="#"
+                    className="relative flex justify-center items-center flex-col w-full text-center font-medium"
+                  >
+                    <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
+                      <FaBell className="w-7 h-7" />
+                    </span>
+                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
+                      Home
+                    </span> */}
+                  </a>
+                </li>
+                <div className="indicator absolute w-[70px] h-[70px] bg-third -top-1/2 rounded-full border-[6px] border-primary transition duration-500"></div>
+              </ul>
             </div>
           </div>
         </div>
