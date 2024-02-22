@@ -11,56 +11,59 @@ import Top from "../Layouts/Top";
 const Home = () => {
   // fetch new anime
   const [newAnimes, setNewAnimes] = useState(null);
-  useEffect(() => {
-    async function getAnimes() {
-      try {
-        const url = "https://api.jikan.moe/v4/seasons/now?limit=12&sfw=true";
-        const data = await fetch(url)
-          .then((response) => response.json())
-          .then((response) => response);
-        setNewAnimes(data.data);
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-    getAnimes();
-  }, []);
-  // fetch popular anime
   const [popularAnime, setPopularAnime] = useState(null);
-  useEffect(() => {
-    async function getAnimes() {
-      try {
-        const url =
-          "https://api.jikan.moe/v4/top/anime?filter=airing&sfw=true&limit=25";
-        const data = await fetch(url)
-          .then((response) => response.json())
-          .then((response) => response);
-        setPopularAnime(data.data);
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-    getAnimes();
-  }, []);
-  // fetch ended anime
   const [recAnime, setRecAnime] = useState(null);
+
+  // fetch all data
   useEffect(() => {
-    async function getAnimes() {
-      try {
-        const url =
-          "https://api.jikan.moe/v4/top/anime?sfw=true&filter=favorite&limit=25";
-        const data = await fetch(url)
-          .then((response) => response.json())
-          .then((response) => response);
-        setRecAnime(data.data);
-        console.log("ok");
-      } catch (error) {
-        console.error(error.message);
-        console.log("ok error");
-      }
-    }
-    getAnimes();
+    const fetchDataSequentially = async () => {
+      const backoffDelay = 1000;
+      const maxRetries = 5;
+      let retries = 0;
+
+      const fetchDataWithRetry = async (url) => {
+        try {
+          const response = await fetch(url);
+          let data = null;
+          if (response.status === 200) {
+            data = await response.json();
+          } else {
+            throw new Error("Some error has happened");
+          }
+          return data.data;
+        } catch (error) {
+          console.log(error.message);
+          if (retries < maxRetries) {
+            retries++;
+            await new Promise((resolve) =>
+              setTimeout(resolve, backoffDelay * retries)
+            );
+            return fetchDataWithRetry(url);
+          } else {
+            throw new Error("Max retries exceeded");
+          }
+        }
+      };
+
+      // fetch newAnime
+      const newAnimesData = await fetchDataWithRetry(
+        "https://api.jikan.moe/v4/seasons/now?limit=12&sfw=true"
+      );
+      setNewAnimes(newAnimesData);
+      // fetch popularAnime
+      const popularAnimeData = await fetchDataWithRetry(
+        "https://api.jikan.moe/v4/top/anime?filter=airing&sfw=true&limit=25"
+      );
+      setPopularAnime(popularAnimeData);
+      // fetch RecAnime
+      const recAnime = await fetchDataWithRetry(
+        "https://api.jikan.moe/v4/top/anime?sfw=true&filter=favorite&limit=25"
+      );
+      setRecAnime(recAnime);
+    };
+    fetchDataSequentially();
   }, []);
+
   return (
     <Fragment>
       {
@@ -138,11 +141,11 @@ const Home = () => {
                 <p className="text-white text-xs">untuk melihat jadwal</p>
               </div>
             </div>
-            <div className="w-full flex flex-wrap px-4 pb-4">
-              <h1 className="w-full text-white font-bold text-xl mb-4">
+            <div className="w-full flex flex-wrap pb-4">
+              <h1 className="w-full text-white font-bold text-xl mb-4 px-4">
                 Sedang Populer
               </h1>
-              <div className="hide-scrollbar flex overflow-auto gap-x-3">
+              <div className="hide-scrollbar flex overflow-auto gap-x-3 px-4">
                 {popularAnime &&
                   popularAnime.map((anime) => (
                     <div
@@ -182,17 +185,17 @@ const Home = () => {
                   ))}
               </div>
             </div>
-            <div className="w-full flex flex-wrap px-4">
+            <div className="w-full flex flex-wrap">
               <div className="w-full flex">
-                <h1 className="text-white font-bold text-xl mb-4">
+                <h1 className="text-white font-bold text-xl mb-4 px-4">
                   Rekomendasi Anime
                 </h1>
-                <div className="flex-1 flex items-center justify-end relative -top-1">
+                <div className="flex-1 flex items-center justify-end relative -top-1 px-4">
                   <h3 className="text-white font-bold text-xs">Lihat Semua</h3>
                   <FaAngleRight className="text-white w-[20px] h-[20px]" />
                 </div>
               </div>
-              <div className="hide-scrollbar flex overflow-auto gap-x-3">
+              <div className="hide-scrollbar flex overflow-auto gap-x-3 px-4">
                 {recAnime &&
                   recAnime.map((anime) => (
                     <div
@@ -200,9 +203,6 @@ const Home = () => {
                       className="min-w-[150px] flex flex-col"
                     >
                       <div className="w-full relative h-[150px] bg- rounded-md mb-2 bg-cover overflow-hidden">
-                        {/* <span className="text-primary tracking-widest absolute left-0 top-0 bg-secondary text-xs font-bold p-1 rounded-br-lg">
-                          Airing
-                        </span> */}
                         <span className="flex absolute top-0 right-0 items-center bg-primary px-2 py-1 rounded-tr-lg">
                           <IoStarSharp className="text-white w-3 h-3 mr-1" />
                           <p className="text-white text-xs">{anime.score}</p>
