@@ -12,6 +12,7 @@ import { FaBell } from "react-icons/fa";
 // import Layouts
 import { Fragment, useEffect, useState } from "react";
 import Top from "../Layouts/Top";
+import BottomBar from "../Fragments/Home/BottomBar";
 
 const Home = () => {
   // fetch new anime
@@ -238,7 +239,7 @@ const Home = () => {
                   ))}
               </div>
             </div>
-            <div className="navigation relative w-[400px] h-[70px] bg-third flex justify-center items-center rounded-[10px]">
+            {/* <div className="navigation relative w-[400px] h-[70px] bg-third flex justify-center items-center rounded-[10px]">
               <ul className="flex items-center w-[350px]">
                 <li className="list z-10 active flex items-center relative w-[70px] h-[70px]">
                   <a
@@ -248,9 +249,6 @@ const Home = () => {
                     <span className="icon relative block leading-[75px] text-2xl text-center text-secondary transition duration-500">
                       <IoMdHome className="w-7 h-7" />
                     </span>
-                    {/* <span className="text absolute text-white font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
-                      Home
-                    </span> */}
                   </a>
                 </li>
                 <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
@@ -261,9 +259,6 @@ const Home = () => {
                     <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
                       <MdDateRange className="w-7 h-7" />
                     </span>
-                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
-                      Home
-                    </span> */}
                   </a>
                 </li>
                 <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
@@ -274,9 +269,6 @@ const Home = () => {
                     <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
                       <MdListAlt className="w-7 h-7" />
                     </span>
-                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
-                      Home
-                    </span> */}
                   </a>
                 </li>
                 <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
@@ -287,9 +279,6 @@ const Home = () => {
                     <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
                       <IoMdTime className="w-7 h-7" />
                     </span>
-                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
-                      Home
-                    </span> */}
                   </a>
                 </li>
                 <li className="list z-10 flex items-center relative w-[70px] h-[70px]">
@@ -300,14 +289,12 @@ const Home = () => {
                     <span className="icon relative block leading-[75px] text-2xl text-center text-white transition duration-500">
                       <FaBell className="w-7 h-7" />
                     </span>
-                    {/* <span className="text absolute text-primary font-normal text-xs tracking-wider transition duration-500 opacity-0 translate-y-[20px]">
-                      Home
-                    </span> */}
                   </a>
                 </li>
                 <div className="indicator absolute w-[70px] h-[70px] bg-third -top-1/2 rounded-full border-[6px] border-primary transition duration-500"></div>
               </ul>
-            </div>
+            </div> */}
+            <BottomBar />
           </div>
         </div>
       </section>
