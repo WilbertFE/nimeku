@@ -1,10 +1,9 @@
 // import Layouts
-import { Fragment, useEffect, useState } from "react";
 import Top from "../Layouts/Home/Top";
 import Main from "../Layouts/Home/Main";
 const Home = () => {
   return (
-    <Fragment>
+    <div className="bg-primary">
       {
         // Top Section Start
       }
@@ -19,7 +18,7 @@ const Home = () => {
       {
         // Main Section End
       }
-    </Fragment>
+    </div>
   );
 };
 export default Home;
