@@ -46,7 +46,7 @@ const BottomBar = () => {
                 onClick={() => setActive(i)}
               >
                 <span
-                  className={`text-xl cursor-pointer duration-500 ${
+                  className={`text-2xl cursor-pointer duration-500 ${
                     i === active ? "-mt-6 text-secondary" : "text-white"
                   }`}
                 >
