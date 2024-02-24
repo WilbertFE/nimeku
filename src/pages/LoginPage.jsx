@@ -1,6 +1,31 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
+  const [isInvalid, setIsInvalid] = useState(null);
+  const handleSubmit = (e) => {
+    // reset
+    e.preventDefault();
+
+    if (!e.target.email.value.trim() || !e.target.password.value.trim()) {
+      setIsInvalid(true);
+      return;
+    } else {
+      // ambil data
+      const nimekuAccount = JSON.parse(localStorage.getItem("nimekuAccount"));
+      console.log("ok");
+      if (
+        nimekuAccount &&
+        e.target.email.value === nimekuAccount.email &&
+        e.target.password.value === nimekuAccount.password
+      ) {
+        window.location.href = "/nimeku/";
+      } else {
+        setIsInvalid(true);
+        return;
+      }
+    }
+  };
   return (
     <div className="bg-primary flex justify-center items-center min-h-screen">
       <div className="bg-third flex flex-wrap min-w-[300px] max-w-xl flex-col shadow-lg rounded-lg p-4 mx-4">
@@ -11,7 +36,7 @@ const LoginPage = () => {
           </p>
         </div>
         <div className="w-full">
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="flex flex-wrap gap-y-4">
               <div className="w-full flex flex-col">
                 <label htmlFor="email" className="text-white mb-2">
@@ -31,6 +56,11 @@ const LoginPage = () => {
               >
                 Login
               </button>
+              {isInvalid && (
+                <span className="w-full text-red-500 text-sm text-center">
+                  Something goes wrong, fill it rightly
+                </span>
+              )}
               <p className="text-center mx-auto text-white text-sm">
                 Dont have account?{" "}
                 <Link to="/register" className="text-secondary">
