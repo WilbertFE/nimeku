@@ -48,7 +48,7 @@ const RecAnime = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-wrap pb-12">
+    <div className="w-full flex flex-wrap pb-32">
       <div className="w-full flex">
         <h1 className="text-white font-bold text-xl mb-4 px-4">
           Rekomendasi Anime

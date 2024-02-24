@@ -9,7 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Router basename="/nimeku">
+    <Router basename="/nimeku/">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />

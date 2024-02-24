@@ -7,7 +7,7 @@ const LoginPage = () => {
         <div className="w-full flex flex-col mb-4">
           <h1 className="text-secondary font-bold text-2xl">Login</h1>
           <p className="text-white text-xs line-clamp-2">
-            Welcom, please enter your details
+            Welcome, please enter your details
           </p>
         </div>
         <div className="w-full">
@@ -17,13 +17,13 @@ const LoginPage = () => {
                 <label htmlFor="email" className="text-white mb-2">
                   Email
                 </label>
-                <input type="email" name="" id="email" />
+                <input type="email" name="email" id="email" />
               </div>
               <div className="w-full flex flex-col">
                 <label htmlFor="password" className="text-white mb-2">
                   Password
                 </label>
-                <input type="password" name="" id="password" />
+                <input type="password" name="password" id="password" />
               </div>
               <button
                 type="submit"
