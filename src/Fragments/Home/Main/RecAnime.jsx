@@ -60,13 +60,11 @@ const RecAnime = () => {
         {recAnime &&
           recAnime.map((anime) => (
             <div key={anime.mal_id} className="min-w-[150px] flex flex-col">
-              <AnimeCard
-                key={anime.mal_id}
-                anime={anime}
-                width="150px"
-                isNew={false}
-                isPopular={false}
-              />
+              <AnimeCard>
+                <AnimeCard.Header anime={anime} isNew={false} />
+                <AnimeCard.Body anime={anime} isPopular={false} />
+                <AnimeCard.Footer anime={anime} />
+              </AnimeCard>
             </div>
           ))}
       </div>

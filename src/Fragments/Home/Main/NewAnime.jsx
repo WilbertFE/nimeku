@@ -61,7 +61,11 @@ const NewAnime = () => {
         {newAnimes &&
           newAnimes.map((anime) => (
             <div key={anime.mal_id} className="w-1/3 flex flex-col px-1">
-              <AnimeCard anime={anime} paddingX={true} />\
+              <AnimeCard>
+                <AnimeCard.Header anime={anime} isNew={true} />
+                <AnimeCard.Body anime={anime} isPopular={true} />
+                <AnimeCard.Footer anime={anime} />
+              </AnimeCard>
             </div>
           ))}
       </div>

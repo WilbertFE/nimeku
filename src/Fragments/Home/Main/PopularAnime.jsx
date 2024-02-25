@@ -50,7 +50,11 @@ const PopularAnime = () => {
         {popularAnime &&
           popularAnime.map((anime) => (
             <div key={anime.mal_id} className="min-w-[150px] flex flex-col">
-              <AnimeCard anime={anime} isNew={false} />
+              <AnimeCard>
+                <AnimeCard.Header anime={anime} isNew={false} />
+                <AnimeCard.Body anime={anime} isPopular={true} />
+                <AnimeCard.Footer anime={anime} />
+              </AnimeCard>
             </div>
           ))}
       </div>
