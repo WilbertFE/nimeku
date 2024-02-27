@@ -38,40 +38,42 @@ const SearchPage = () => {
   }, [searchValue]);
 
   return (
-    <div className="container p-4 bg-primary min-h-screen">
-      <div className="flex flex-col">
-        <div className="flex flex-col gap-y-6 mb-8">
-          <Link to="/">
-            <FaArrowLeft className="text-white text-xl" />
-          </Link>
-          <input
-            type="text"
-            name="anime-search"
-            id="anime-search"
-            placeholder="Tulis anime yang mau dicari"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="block bg-third h-[50px] rounded-lg px-3 focus:outline-none text-white"
-          />
-        </div>
-        {animes && !isLoad ? (
-          <div className="flex flex-wrap gap-y-4">
-            {animes.map((anime, i) => (
-              <div key={i} className="w-1/3 flex flex-col px-1">
-                <AnimeCard>
-                  <AnimeCard.Header anime={anime} isNew={false} />
-                  <AnimeCard.Body anime={anime} isPopular={false} />
-                  <AnimeCard.Footer anime={anime} />
-                </AnimeCard>
-              </div>
-            ))}
+    <section id="search" className="min-h-screen bg-primary">
+      <div className="container p-4">
+        <div className="flex flex-col">
+          <div className="flex flex-col gap-y-6 mb-8">
+            <Link to="/">
+              <FaArrowLeft className="text-white text-xl" />
+            </Link>
+            <input
+              type="text"
+              name="anime-search"
+              id="anime-search"
+              placeholder="Tulis anime yang mau dicari"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="block bg-third h-[50px] rounded-lg px-3 focus:outline-none text-white"
+            />
           </div>
-        ) : null}
-        {isLoad && (
-          <div className="w-[50px] h-[50px] self-center mt-32 bg-transparent border border-white border-l-transparent border-t-transparent rounded-full animate-spin"></div>
-        )}
+          {animes && !isLoad ? (
+            <div className="flex flex-wrap gap-y-4">
+              {animes.map((anime, i) => (
+                <div key={i} className="w-1/3 flex flex-col px-1">
+                  <AnimeCard>
+                    <AnimeCard.Header anime={anime} isNew={false} />
+                    <AnimeCard.Body anime={anime} isPopular={false} />
+                    <AnimeCard.Footer anime={anime} />
+                  </AnimeCard>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          {isLoad && (
+            <div className="w-[50px] h-[50px] self-center mt-32 bg-transparent border border-white border-l-transparent border-t-transparent rounded-full animate-spin"></div>
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default SearchPage;

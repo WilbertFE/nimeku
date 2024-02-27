@@ -45,6 +45,11 @@ const NewAnime = () => {
     };
     fetchDataSequentially();
   }, []);
+
+  const handleClick = (id) => {
+    window.location.href = `/nimeku/anime/${id}`;
+  };
+
   return (
     <div className="w-full flex flex-wrap pb-4">
       <div className="w-full flex items-center gap-x-2 px-6 mb-4">
@@ -60,7 +65,11 @@ const NewAnime = () => {
       <div className="w-full flex gap-y-3 px-1 flex-wrap">
         {newAnimes &&
           newAnimes.map((anime) => (
-            <div key={anime.mal_id} className="w-1/3 flex flex-col px-1">
+            <div
+              onClick={() => handleClick(anime.mal_id)}
+              key={anime.mal_id}
+              className="w-1/3 flex flex-col px-1 cursor-pointer"
+            >
               <AnimeCard>
                 <AnimeCard.Header anime={anime} isNew={true} />
                 <AnimeCard.Body anime={anime} isPopular={true} />
