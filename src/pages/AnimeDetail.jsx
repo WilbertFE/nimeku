@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 // import icons
 import { FaArrowLeft } from "react-icons/fa6";
@@ -6,38 +6,25 @@ import Energy from "../Fragments/Home/Top/Energy";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaBell } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa6";
+import { MdOutlineDateRange } from "react-icons/md";
+// import hooks
+import { useAnime } from "../hooks/useAnime";
 
 const AnimeDetail = () => {
   const { id } = useParams();
-  const [detail, setDetail] = useState(null);
+  const detail = useAnime(id);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const url = `https://api.jikan.moe/v4/anime/${id}/full`;
-        const data = await fetch(url).then((response) => {
-          if (response.status !== 200) {
-            throw new Error(response.statusText);
-          }
-          return response.json();
-        });
-        console.log(data.data);
-        setDetail(data.data);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
-    getData();
-  }, []);
+  console.log(detail);
 
   return (
-    <section id="detail" className="min-h-screen bg-slate-950">
+    <section id="detail" className="min-h-screen bg-slate-950 pb-32">
       <div className="container">
         <div className="flex flex-col">
           {detail && (
             <Fragment>
               <div
-                className="flex items-start p-4 min-h-[300px] bg-cover bg-center"
+                className="flex items-start p-4 min-h-[300px] bg-cover bg-center mb-4"
                 style={{
                   backgroundImage: `url(${detail.images.webp.large_image_url})`,
                 }}
@@ -49,7 +36,7 @@ const AnimeDetail = () => {
                 </div>
                 <Energy />
               </div>
-              <div className="flex flex-col gap-y-1 px-4 truncate">
+              <div className="flex flex-col gap-y-1 px-4 mb-3 truncate">
                 <h1 className="text-xl text-white truncate">{detail.title}</h1>
                 <h3 className="text-secondary text-sm mb-2">
                   {detail.title_japanese}
@@ -64,7 +51,7 @@ const AnimeDetail = () => {
                     {detail.scored_by / 1000} Subscribers
                   </h3>
                 </div>
-                <div className="flex items-center gap-x-2">
+                <div className="flex items-centerm mb-2 gap-x-2">
                   <div className="flex gap-x-1">
                     <FaStar className="text-base text-secondary" />
                     <h3 className="text-white text-sm">{detail.score}</h3>
@@ -83,6 +70,38 @@ const AnimeDetail = () => {
                     {detail.studios[0].name}
                   </h3>
                 </div>
+                <div className="flex flex-wrap gap-x-2 mb-4">
+                  {detail.genres.map((genre) => (
+                    <h3
+                      key={genre.mal_id}
+                      className="text-white text-sm border border-secondary bg-transparent px-2 py-1 rounded-tl-lg rounded-full"
+                    >
+                      {genre.name}
+                    </h3>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col px-4 mb-4">
+                <div className="flex gap-x-6 mb-4">
+                  <div className="w-1/2 flex gap-x-1 items-center justify-center bg-third text-white px-4 py-3 rounded-full">
+                    <FaBookmark className="text-white relative -top-[1px]" />
+                    Subscribe
+                  </div>
+                  <div className="w-1/2 flex gap-x-1 items-center justify-center bg-secondary text-slate-950 font-bold px-4 py-3 rounded-full">
+                    <MdOutlineDateRange className="text-lg relative -top-[1px]" />
+                    {detail.broadcast.day}
+                  </div>
+                </div>
+                <div className="bg-third text-secondary text-sm p-3 text-center rounded-full">
+                  Tekan Untuk Melihat Episode 1
+                </div>
+              </div>
+              <div className="flex flex-col px-4 gap-y-2">
+                <h1 className="text-white text-xl">Sipnopsis</h1>
+                <p className="text-white/70 text-sm">
+                  {detail.synopsis.substring(0, 150)}
+                </p>
+                <span className="text-secondary text-sm">More...</span>
               </div>
             </Fragment>
           )}

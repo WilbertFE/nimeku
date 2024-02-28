@@ -2,13 +2,8 @@ import { useEffect, useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-const defaultData = {
-  name: "Anda belum login",
-  level: 1,
-};
-
 const Profile = () => {
-  const [account, setAccount] = useState(defaultData);
+  const [account, setAccount] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem("nimekuAccount")) {
@@ -24,21 +19,22 @@ const Profile = () => {
       </div>
       <div className="flex flex-col flex-1 overflow-hidden">
         <span className="text-white/80 text-sm">Welcome,</span>
-        <h1
-          className={`truncate tracking-widest ${
-            account.name === "Anda belum login"
-              ? "text-blue-500 underline"
-              : "text-white"
-          }`}
-        >
-          {account.name === "Anda belum login" ? (
-            <Link to="/login">{account.name}</Link>
-          ) : (
-            account.name
-          )}
-        </h1>
+        {account && (
+          <h1 className="text-white tracking-widest truncate">
+            {account.name}
+          </h1>
+        )}
+        {!account && (
+          <Link to="/login">
+            <h1 className="text-blue-600 tracking-widest truncate underline">
+              Anda Belum Login
+            </h1>
+          </Link>
+        )}
         <div className="flex items-center">
-          <p className="text-white mr-2 tracking-wide">Lvl. {account.level}</p>
+          <p className="text-white mr-2 tracking-wide">
+            Lvl. {account && account.level}
+          </p>
           <span className="block flex-1 h-[5px] bg-fourth"></span>
           <p className="text-white ml-2">0%</p>
         </div>
