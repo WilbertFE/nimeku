@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // import icons
 import { FaArrowLeft } from "react-icons/fa6";
@@ -14,8 +14,19 @@ import { useAnime } from "../hooks/useAnime";
 const AnimeDetail = () => {
   const { id } = useParams();
   const detail = useAnime(id);
+  const [relatedAnime, setRelatedAnime] = useState([]);
 
-  console.log(detail);
+  useEffect(() => {
+    // guard
+    if (!detail) return;
+    // ambil id
+    const animeId = detail.relations
+      .map((item) => item.entry[0])
+      .filter((item) => item.type === "anime")
+      .map((item) => item.mal_id);
+  }, [detail]);
+
+  console.log(relatedAnime);
 
   return (
     <section id="detail" className="min-h-screen bg-slate-950 pb-32">
@@ -36,19 +47,19 @@ const AnimeDetail = () => {
                 </div>
                 <Energy />
               </div>
-              <div className="flex flex-col gap-y-1 px-4 mb-3 truncate">
-                <h1 className="text-xl text-white truncate">{detail.title}</h1>
+              <div className="flex flex-col gap-y-1 px-4 mb-3">
+                <h1 className="text-xl text-white">{detail.title}</h1>
                 <h3 className="text-secondary text-sm mb-2">
                   {detail.title_japanese}
                 </h3>
                 <div className="flex gap-x-1 items-center mb-2">
                   <IoEyeOutline className="text-white" />
                   <h3 className="text-white/80 mr-1">
-                    {detail.members / 1000} Views
+                    {Math.floor(detail.members / 1000)}K Views
                   </h3>
                   <FaBell className="text-white" />
                   <h3 className="text-white/80">
-                    {detail.scored_by / 1000} Subscribers
+                    {Math.floor(detail.scored_by / 1000)}K Subscribers
                   </h3>
                 </div>
                 <div className="flex items-centerm mb-2 gap-x-2">
@@ -96,12 +107,16 @@ const AnimeDetail = () => {
                   Tekan Untuk Melihat Episode 1
                 </div>
               </div>
-              <div className="flex flex-col px-4 gap-y-2">
+              <div className="flex flex-col px-4 gap-y-2 mb-4">
                 <h1 className="text-white text-xl">Sipnopsis</h1>
                 <p className="text-white/70 text-sm">
                   {detail.synopsis.substring(0, 150)}
                 </p>
                 <span className="text-secondary text-sm">More...</span>
+              </div>
+              <div className="flex flex-col px-4">
+                <h1 className="text-xl text-white">Anime Terkait</h1>
+                <div className="flex overflow-auto"></div>
               </div>
             </Fragment>
           )}

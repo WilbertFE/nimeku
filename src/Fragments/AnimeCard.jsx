@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { IoMdPerson } from "react-icons/io";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoStarSharp } from "react-icons/io5";
+import { IoEyeOutline } from "react-icons/io5";
 
 const AnimeCard = (props) => {
   const { children } = props;
@@ -38,9 +38,9 @@ const CardBody = (props) => {
   const { isPopular, anime } = props;
   return (
     <div className="flex gap-x-1">
-      <IoMdPerson className="text-white/70 w-4 h-4 mb-1" />
+      <IoEyeOutline className="text-white/70 text-sm mb-1" />
       <p className="text-[11px] text-white/90 flex-1">
-        {Math.round(anime.scored_by / 1000)}K
+        {Math.floor(anime.scored_by / 1000)}K
       </p>
       {isPopular && (
         <>
