@@ -22,7 +22,7 @@ const SearchPage = () => {
 
     const getData = async () => {
       try {
-        const url = `https://api.jikan.moe/v4/anime?q=${searchValue}&sfw&unapproved&limit=25&order_by=popularity&rating=pg13`;
+        const url = `https://api.jikan.moe/v4/anime?sfw&unapproved&limit=25&order_by=scored_by&rating=pg13&q=${searchValue}`;
         const data = await fetch(url).then((response) => {
           if (response.status !== 200) {
             throw new Error(response.statusText);
