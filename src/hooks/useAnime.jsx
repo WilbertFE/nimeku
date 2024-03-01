@@ -6,13 +6,16 @@ export const useAnime = (id) => {
     const getData = async () => {
       try {
         const url = `https://api.jikan.moe/v4/anime/${id}/full`;
-        const data = await fetch(url).then((response) => {
+        const response = await fetch(url).then((response) => {
           if (response.status !== 200) {
             throw new Error(response.statusText);
           }
           return response.json();
         });
-        setDetail(data.data);
+        const data = response.data;
+        setDetail({
+          main: data,
+        });
       } catch (err) {
         console.error(err.message);
       }

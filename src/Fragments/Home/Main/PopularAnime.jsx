@@ -41,6 +41,11 @@ const PopularAnime = () => {
     };
     fetchDataSequentially();
   }, []);
+  const handleClick = (id, anime) => {
+    window.location.href = `/nimeku/anime/${id}`;
+    localStorage.last = JSON.stringify(anime);
+  };
+
   return (
     <div className="w-full flex flex-wrap pb-4">
       <h1 className="w-full text-white font-bold text-xl mb-4 px-4">
@@ -49,7 +54,11 @@ const PopularAnime = () => {
       <div className="hide-scrollbar flex overflow-auto gap-x-3 px-4">
         {popularAnime &&
           popularAnime.map((anime) => (
-            <div key={anime.mal_id} className="min-w-[150px] flex flex-col">
+            <div
+              onClick={() => handleClick(anime.mal_id, anime)}
+              key={anime.mal_id}
+              className="min-w-[150px] flex flex-col cursor-pointer"
+            >
               <AnimeCard>
                 <AnimeCard.Header anime={anime} isNew={false} />
                 <AnimeCard.Body anime={anime} isPopular={true} />

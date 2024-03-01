@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 // import icons
 import { FaArrowLeft } from "react-icons/fa6";
@@ -14,19 +14,6 @@ import { useAnime } from "../hooks/useAnime";
 const AnimeDetail = () => {
   const { id } = useParams();
   const detail = useAnime(id);
-  const [relatedAnime, setRelatedAnime] = useState([]);
-
-  useEffect(() => {
-    // guard
-    if (!detail) return;
-    // ambil id
-    const animeId = detail.relations
-      .map((item) => item.entry[0])
-      .filter((item) => item.type === "anime")
-      .map((item) => item.mal_id);
-  }, [detail]);
-
-  console.log(relatedAnime);
 
   return (
     <section id="detail" className="min-h-screen bg-slate-950 pb-32">
@@ -37,7 +24,7 @@ const AnimeDetail = () => {
               <div
                 className="flex items-start p-4 min-h-[300px] bg-cover bg-center mb-4"
                 style={{
-                  backgroundImage: `url(${detail.images.webp.large_image_url})`,
+                  backgroundImage: `url(${detail.main.images.webp.large_image_url})`,
                 }}
               >
                 <div>
@@ -48,24 +35,24 @@ const AnimeDetail = () => {
                 <Energy />
               </div>
               <div className="flex flex-col gap-y-1 px-4 mb-3">
-                <h1 className="text-xl text-white">{detail.title}</h1>
+                <h1 className="text-xl text-white">{detail.main.title}</h1>
                 <h3 className="text-secondary text-sm mb-2">
-                  {detail.title_japanese}
+                  {detail.main.title_japanese}
                 </h3>
                 <div className="flex gap-x-1 items-center mb-2">
                   <IoEyeOutline className="text-white" />
                   <h3 className="text-white/80 mr-1">
-                    {Math.floor(detail.members / 1000)}K Views
+                    {Math.floor(detail.main.members / 1000)}K Views
                   </h3>
                   <FaBell className="text-white" />
                   <h3 className="text-white/80">
-                    {Math.floor(detail.scored_by / 1000)}K Subscribers
+                    {Math.floor(detail.main.scored_by / 1000)}K Subscribers
                   </h3>
                 </div>
                 <div className="flex items-centerm mb-2 gap-x-2">
                   <div className="flex gap-x-1">
                     <FaStar className="text-base text-secondary" />
-                    <h3 className="text-white text-sm">{detail.score}</h3>
+                    <h3 className="text-white text-sm">{detail.main.score}</h3>
                   </div>
                   <h3 className="text-white text-sm">TV</h3>
                   <h3 className="text-white text-sm">
@@ -74,15 +61,16 @@ const AnimeDetail = () => {
                       : "Completed"}
                   </h3>
                   <h3 className="text-white text-sm">
-                    {detail.aired.prop.from.day}-{detail.aired.prop.from.month}-
-                    {detail.aired.prop.from.year}
+                    {detail.main.aired.prop.from.day}-
+                    {detail.main.aired.prop.from.month}-
+                    {detail.main.aired.prop.from.year}
                   </h3>
                   <h3 className="text-white text-sm truncate">
-                    {detail.studios[0].name}
+                    {detail.main.studios[0].name}
                   </h3>
                 </div>
                 <div className="flex flex-wrap gap-x-2 mb-4">
-                  {detail.genres.map((genre) => (
+                  {detail.main.genres.map((genre) => (
                     <h3
                       key={genre.mal_id}
                       className="text-white text-sm border border-secondary bg-transparent px-2 py-1 rounded-tl-lg rounded-full"
@@ -100,7 +88,7 @@ const AnimeDetail = () => {
                   </div>
                   <div className="w-1/2 flex gap-x-1 items-center justify-center bg-secondary text-slate-950 font-bold px-4 py-3 rounded-full">
                     <MdOutlineDateRange className="text-lg relative -top-[1px]" />
-                    {detail.broadcast.day}
+                    {detail.main.broadcast.day}
                   </div>
                 </div>
                 <div className="bg-third text-secondary text-sm p-3 text-center rounded-full">
@@ -110,13 +98,17 @@ const AnimeDetail = () => {
               <div className="flex flex-col px-4 gap-y-2 mb-4">
                 <h1 className="text-white text-xl">Sipnopsis</h1>
                 <p className="text-white/70 text-sm">
-                  {detail.synopsis.substring(0, 150)}
+                  {detail.main.synopsis.substring(0, 150)}
                 </p>
                 <span className="text-secondary text-sm">More...</span>
               </div>
               <div className="flex flex-col px-4">
-                <h1 className="text-xl text-white">Anime Terkait</h1>
-                <div className="flex overflow-auto"></div>
+                <h1 className="text-xl text-white mb-4">Trailer Anime</h1>
+                <iframe
+                  src={`${detail.main.trailer.embed_url}`}
+                  allowFullScreen
+                  className="border-0 w-full h-[200px] max-w-lg rounded-lg"
+                ></iframe>
               </div>
             </Fragment>
           )}

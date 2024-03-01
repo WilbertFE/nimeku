@@ -46,8 +46,9 @@ const NewAnime = () => {
     fetchDataSequentially();
   }, []);
 
-  const handleClick = (id) => {
+  const handleClick = (id, anime) => {
     window.location.href = `/nimeku/anime/${id}`;
+    localStorage.last = JSON.stringify(anime);
   };
 
   return (
@@ -66,7 +67,7 @@ const NewAnime = () => {
         {newAnimes &&
           newAnimes.map((anime) => (
             <div
-              onClick={() => handleClick(anime.mal_id)}
+              onClick={() => handleClick(anime.mal_id, anime)}
               key={anime.mal_id}
               className="w-1/3 flex flex-col px-1 cursor-pointer"
             >
