@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import AnimeCard from "../Fragments/AnimeCard";
+import { FaSearch } from "react-icons/fa";
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -37,6 +38,19 @@ const SearchPage = () => {
     getData();
   }, [searchValue]);
 
+  const handleClick = (id, anime) => {
+    window.location.href = `/nimeku/anime/${id}`;
+    localStorage.last = JSON.stringify(anime);
+  };
+
+  const handleSearch = (e) => {
+    // reset
+    e.preventDefault();
+    // ubah data
+    const value = e.target.animeSearch.value;
+    setSearchValue(value);
+  };
+
   return (
     <section id="search" className="min-h-screen bg-primary">
       <div className="container p-4">
@@ -45,20 +59,27 @@ const SearchPage = () => {
             <Link to="/">
               <FaArrowLeft className="text-white text-xl" />
             </Link>
-            <input
-              type="text"
-              name="anime-search"
-              id="anime-search"
-              placeholder="Tulis anime yang mau dicari"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className="block bg-third h-[50px] rounded-lg px-3 focus:outline-none text-white"
-            />
+            <form onSubmit={(e) => handleSearch(e)} className="relative">
+              <input
+                type="text"
+                name="anime-search"
+                id="animeSearch"
+                placeholder="Tulis anime yang mau dicari"
+                className="block w-full bg-third h-[50px] rounded-lg px-3 focus:outline-none text-white"
+              />
+              <button type="submit">
+                <FaSearch className="absolute right-3 top-3 text-secondary text-xl cursor-pointer" />
+              </button>
+            </form>
           </div>
           {animes && !isLoad ? (
             <div className="flex flex-wrap gap-y-4">
               {animes.map((anime, i) => (
-                <div key={i} className="w-1/3 flex flex-col px-1">
+                <div
+                  key={i}
+                  onClick={() => handleClick(anime.mal_id, anime)}
+                  className="w-1/3 flex flex-col px-1 cursor-pointer"
+                >
                   <AnimeCard>
                     <AnimeCard.Header anime={anime} isNew={false} />
                     <AnimeCard.Body anime={anime} isPopular={false} />

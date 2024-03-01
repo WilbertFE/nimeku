@@ -16,7 +16,6 @@ const LastAnime = () => {
       return;
     }
   };
-  console.log(lastestAnime);
   return (
     <div className="w-full flex gap-x-4 items-start px-6 mb-6">
       <div className="w-[100px] h-[70px] bg-third rounded-md overflow-hidden">
