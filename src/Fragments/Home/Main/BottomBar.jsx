@@ -1,29 +1,30 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const BottomBar = () => {
   const menus = [
     {
-      name: "Home",
+      name: "home",
       icon: "home-outline",
       dis: "translate-x-0",
     },
     {
-      name: "Date",
+      name: "date",
       icon: "calendar-outline",
       dis: "translate-x-16",
     },
     {
-      name: "Katalog",
+      name: "katalog",
       icon: "list-outline",
       dis: "translate-x-32",
     },
     {
-      name: "History",
+      name: "history",
       icon: "time-outline",
       dis: "translate-x-48",
     },
     {
-      name: "Favorite",
+      name: "favorite",
       icon: "bookmark-outline",
       dis: "translate-x-64",
     },
@@ -45,15 +46,16 @@ const BottomBar = () => {
                 className="flex flex-col text-center pt-6"
                 onClick={() => setActive(i)}
               >
-                <span
+                <Link
+                  to={`/${menu.name}`}
                   className={`text-2xl cursor-pointer duration-500 ${
                     i === active ? "-mt-6 text-secondary" : "text-white"
                   }`}
                 >
                   <ion-icon name={menu.icon}></ion-icon>
-                </span>
+                </Link>
                 <span
-                  className={` text-white text-xs ${
+                  className={` text-white text-xs capitalize ${
                     active === i
                       ? "translate-y-5 duration-700 opacity-100"
                       : "opacity-0 translate-y-10"

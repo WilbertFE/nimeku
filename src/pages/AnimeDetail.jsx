@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // import icons
 import { FaArrowLeft } from "react-icons/fa6";
@@ -14,6 +14,39 @@ import { useAnime } from "../hooks/useAnime";
 const AnimeDetail = () => {
   const { id } = useParams();
   const detail = useAnime(id);
+  const [more, setMore] = useState(false);
+  const [subscribe, setSubscribe] = useState(false);
+
+  useEffect(() => {
+    if (!detail) return;
+
+    const anime =
+      JSON.parse(localStorage.getItem("subscribedAnime")).find(
+        (anime) => anime.mal_id === detail.main.mal_id
+      ) || false;
+
+    if (anime) {
+      setSubscribe(true);
+    } else {
+      setSubscribe(false);
+    }
+  }, [detail]);
+
+  const handleSubscribe = (anime) => {
+    if (subscribe === false) {
+      setSubscribe(true);
+      // atur localStorage
+      const latestStorage =
+        JSON.parse(localStorage.getItem("subscribedAnime")) || [];
+      localStorage.subscribedAnime = JSON.stringify([...latestStorage, anime]);
+    } else if (subscribe === true) {
+      setSubscribe(false);
+      const newLocalStorage = JSON.parse(
+        localStorage.getItem("subscribedAnime")
+      ).filter((item) => item.mal_id !== anime.mal_id);
+      localStorage.subscribedAnime = JSON.stringify(newLocalStorage);
+    }
+  };
 
   return (
     <section id="detail" className="min-h-screen bg-slate-950 pb-32">
@@ -82,9 +115,16 @@ const AnimeDetail = () => {
               </div>
               <div className="flex flex-col px-4 mb-4">
                 <div className="flex gap-x-6 mb-4">
-                  <div className="w-1/2 flex gap-x-1 items-center justify-center bg-third text-white px-4 py-3 rounded-full">
-                    <FaBookmark className="text-white relative -top-[1px]" />
-                    Subscribe
+                  <div
+                    onClick={() => handleSubscribe(detail.main)}
+                    className="w-1/2 flex gap-x-1 items-center justify-center bg-third text-white px-4 py-3 rounded-full cursor-pointer"
+                  >
+                    <FaBookmark
+                      className={`relative -top-[1px] ${
+                        subscribe ? "text-secondary" : "text-white"
+                      }`}
+                    />
+                    {subscribe ? "Unsubscribe" : "Subscribe"}
                   </div>
                   <div className="w-1/2 flex gap-x-1 items-center justify-center bg-secondary text-slate-950 font-bold px-4 py-3 rounded-full">
                     <MdOutlineDateRange className="text-lg relative -top-[1px]" />
@@ -98,9 +138,19 @@ const AnimeDetail = () => {
               <div className="flex flex-col px-4 gap-y-2 mb-4">
                 <h1 className="text-white text-xl">Sipnopsis</h1>
                 <p className="text-white/70 text-sm">
-                  {detail.main.synopsis.substring(0, 150)}
+                  {more
+                    ? detail.main.synopsis.substring(
+                        0,
+                        detail.main.synopsis.length
+                      )
+                    : detail.main.synopsis.substring(0, 150)}
                 </p>
-                <span className="text-secondary text-sm">More...</span>
+                <span
+                  onClick={() => setMore(!more)}
+                  className="text-secondary text-sm self-start cursor-pointer"
+                >
+                  {more ? "Less" : "More..."}
+                </span>
               </div>
               <div className="flex flex-col px-4">
                 <h1 className="text-xl text-white mb-4">Trailer Anime</h1>
