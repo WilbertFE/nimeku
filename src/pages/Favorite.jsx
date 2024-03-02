@@ -25,14 +25,14 @@ const Favorite = () => {
   return (
     <section id="favorite" className="bg-primary min-h-screen pb-32">
       <div className="container">
-        <div className="flex flex-col gap-y-4 mx-4 pb-4 pt-12">
+        <div className="flex flex-col gap-y-4 py-4 mx-4">
           <div className="flex items-center justify-center">
             <FaBookmark className="text-white text-lg mr-2" />
             <h1 className="text-xl text-white">Subscribed Anime</h1>
           </div>
           <div className="flex">
             {subscribedAnimes && (
-              <div className="w-full flex flex-wrap gap-y-4">
+              <div className="w-full flex flex-wrap">
                 {subscribedAnimes.map((anime) => (
                   <div
                     key={anime.mal_id}
@@ -48,7 +48,11 @@ const Favorite = () => {
                 ))}
               </div>
             )}
-            {!subscribedAnimes && <div className="w-full flex">s</div>}
+            {!subscribedAnimes && (
+              <div className="w-full text-center text-white/80 text-xl fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                Tidak ada anime yang di subscribe
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap">
             <BottomBar onActive={4} />

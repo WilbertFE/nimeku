@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import AnimeCard from "../Fragments/AnimeCard";
@@ -51,6 +51,13 @@ const SearchPage = () => {
     setSearchValue(value);
   };
 
+  // use ref
+  const focusSearch = useRef(null);
+
+  useEffect(() => {
+    focusSearch.current.focus();
+  }, []);
+
   return (
     <section id="search" className="min-h-screen bg-primary">
       <div className="container p-4">
@@ -65,6 +72,7 @@ const SearchPage = () => {
                 name="anime-search"
                 id="animeSearch"
                 placeholder="Tulis anime yang mau dicari"
+                ref={focusSearch}
                 className="block w-full bg-third h-[50px] rounded-lg px-3 focus:outline-none text-white"
               />
               <button type="submit">
