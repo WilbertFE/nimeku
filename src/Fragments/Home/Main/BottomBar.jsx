@@ -1,7 +1,10 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const BottomBar = () => {
+const BottomBar = (props) => {
+  const { onActive } = props;
+
   const menus = [
     {
       name: "home",
@@ -29,9 +32,15 @@ const BottomBar = () => {
       dis: "translate-x-64",
     },
   ];
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(localStorage.getItem("position") || 0);
+
+  useEffect(() => {
+    setActive(onActive);
+    localStorage.position = onActive;
+  }, [onActive]);
+
   return (
-    <div className="bg-primary pt-6 w-full overflow-hidden flex justify-center fixed bottom-0">
+    <div className="bg-primary pt-6 w-full overflow-hidden flex justify-center fixed bottom-0 left-0 right-0">
       <div className="bg-third max-h-[4.4rem] w-full flex justify-center rounded-t-xl">
         <ul className="flex relative">
           <span
@@ -42,12 +51,9 @@ const BottomBar = () => {
           </span>
           {menus.map((menu, i) => (
             <li key={i} className="w-16">
-              <a
-                className="flex flex-col text-center pt-6"
-                onClick={() => setActive(i)}
-              >
+              <span className="flex flex-col text-center pt-6">
                 <Link
-                  to={`/${menu.name}`}
+                  to={menu.name === "home" ? "/" : `/${menu.name}`}
                   className={`text-2xl cursor-pointer duration-500 ${
                     i === active ? "-mt-6 text-secondary" : "text-white"
                   }`}
@@ -63,7 +69,7 @@ const BottomBar = () => {
                 >
                   {menu.name}
                 </span>
-              </a>
+              </span>
             </li>
           ))}
         </ul>

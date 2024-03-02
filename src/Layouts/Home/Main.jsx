@@ -13,7 +13,7 @@ const Main = () => {
           <RealeaseDate />
           <PopularAnime />
           <RecAnime />
-          <BottomBar />
+          <BottomBar onActive={0} />
         </div>
       </div>
     </section>

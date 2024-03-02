@@ -20,16 +20,27 @@ const AnimeDetail = () => {
   useEffect(() => {
     if (!detail) return;
 
-    const anime =
-      JSON.parse(localStorage.getItem("subscribedAnime")).find(
+    if (localStorage.getItem("subscribedAnime")) {
+      const animes = JSON.parse(localStorage.getItem("subscribedAnime")).find(
         (anime) => anime.mal_id === detail.main.mal_id
-      ) || false;
-
-    if (anime) {
-      setSubscribe(true);
+      );
+      if (animes) {
+        setSubscribe(true);
+      } else {
+        setSubscribe(false);
+      }
     } else {
-      setSubscribe(false);
+      return;
     }
+
+    // const animes = JSON.parse(localStorage.getItem("subscribedAnime"));
+    // console.log(animes);
+
+    // if (animes) {
+    //   setSubscribe(true);
+    // } else {
+    //   setSubscribe(false);
+    // }
   }, [detail]);
 
   const handleSubscribe = (anime) => {
