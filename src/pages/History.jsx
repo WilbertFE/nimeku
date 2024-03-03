@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BottomBar from "../Fragments/Home/Main/BottomBar";
+import Github from "../Fragments/Github";
 
 const History = () => {
   const [lastAnime, setLastAnime] = useState(null);
@@ -9,6 +10,10 @@ const History = () => {
       setLastAnime(JSON.parse(localStorage.getItem("last")));
     }
   }, []);
+
+  const handleDetail = (id) => {
+    window.location.href = `/nimeku/anime/${id}`;
+  };
 
   return (
     <section id="history" className="bg-primary min-h-screen pb-32">
@@ -24,7 +29,10 @@ const History = () => {
                 <h3 className="text-white font-medium text-xl mb-6">
                   Terakhir ditonton
                 </h3>
-                <div className="flex">
+                <div
+                  onClick={() => handleDetail(lastAnime.mal_id)}
+                  className="flex"
+                >
                   <div className="flex items-center flex-col mr-2 mt-2">
                     <span className="text-white">
                       <ion-icon name="time-outline"></ion-icon>
@@ -57,6 +65,7 @@ const History = () => {
             </div>
           )}
           <BottomBar onActive={3} />
+          <Github />
         </div>
       </div>
     </section>

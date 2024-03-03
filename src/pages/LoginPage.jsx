@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
@@ -26,6 +26,13 @@ const LoginPage = () => {
       }
     }
   };
+
+  // useRef
+  const inputFocus = useRef(null);
+  useEffect(() => {
+    inputFocus.current.focus();
+  });
+
   return (
     <div className="bg-primary flex justify-center items-center min-h-screen">
       <div className="bg-third flex flex-wrap min-w-[300px] max-w-xl flex-col shadow-lg rounded-lg p-4 mx-4">
@@ -42,7 +49,7 @@ const LoginPage = () => {
                 <label htmlFor="email" className="text-white mb-2">
                   Email
                 </label>
-                <input type="email" name="email" id="email" />
+                <input ref={inputFocus} type="email" name="email" id="email" />
               </div>
               <div className="w-full flex flex-col">
                 <label htmlFor="password" className="text-white mb-2">

@@ -1,3 +1,4 @@
+import Github from "../Fragments/Github";
 import BottomBar from "../Fragments/Home/Main/BottomBar";
 
 const Date = () => {
@@ -15,6 +16,7 @@ const Date = () => {
             Halaman ini akan segera hadir
           </div>
           <BottomBar onActive={1} />
+          <Github />
         </div>
       </div>
     </section>

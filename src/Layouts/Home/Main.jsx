@@ -1,3 +1,4 @@
+import Github from "../../Fragments/Github";
 import BottomBar from "../../Fragments/Home/Main/BottomBar";
 import NewAnime from "../../Fragments/Home/Main/NewAnime";
 import PopularAnime from "../../Fragments/Home/Main/PopularAnime";
@@ -14,6 +15,7 @@ const Main = () => {
           <PopularAnime />
           <RecAnime />
           <BottomBar onActive={0} />
+          <Github />
         </div>
       </div>
     </section>

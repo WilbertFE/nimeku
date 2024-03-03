@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
@@ -30,6 +30,13 @@ const RegisterPage = () => {
       window.location.href = "/nimeku/login";
     }
   };
+
+  const inputFocus = useRef(null);
+
+  useEffect(() => {
+    inputFocus.current.focus();
+  }, []);
+
   return (
     <div className="bg-primary flex justify-center items-center min-h-screen">
       <div className="bg-third flex flex-wrap min-w-[300px] max-w-xl flex-col shadow-lg rounded-lg p-4 mx-4">
@@ -46,7 +53,7 @@ const RegisterPage = () => {
                 <label htmlFor="name" className="text-white mb-2">
                   Name
                 </label>
-                <input type="text" name="name" id="name" />
+                <input ref={inputFocus} type="text" name="name" id="name" />
               </div>
               <div className="w-full flex flex-col">
                 <label htmlFor="email" className="text-white mb-2">

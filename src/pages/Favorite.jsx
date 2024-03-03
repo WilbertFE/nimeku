@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaBookmark } from "react-icons/fa6";
 import AnimeCard from "../Fragments/AnimeCard";
 import BottomBar from "../Fragments/Home/Main/BottomBar";
+import Github from "../Fragments/Github";
 
 const Favorite = () => {
   const [subscribedAnimes, setSubscribedAnime] = useState(null);
@@ -54,9 +55,8 @@ const Favorite = () => {
               </div>
             )}
           </div>
-          <div className="flex flex-wrap">
-            <BottomBar onActive={4} />
-          </div>
+          <BottomBar onActive={4} />
+          <Github />
         </div>
       </div>
     </section>
