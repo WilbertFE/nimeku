@@ -3,11 +3,13 @@ import { FaPlay } from "react-icons/fa";
 
 const LastAnime = () => {
   const [lastestAnime, setLatestAnime] = useState(null);
+
   useEffect(() => {
     if (localStorage.getItem("last")) {
       setLatestAnime(JSON.parse(localStorage.getItem("last")));
     }
   }, []);
+
   const handleClick = () => {
     if (localStorage.getItem("last")) {
       const data = JSON.parse(localStorage.getItem("last"));
